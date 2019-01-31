@@ -12,6 +12,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import service.City;
+import service.Salary;
 import stub.CityStub;
 import stub.SalaryStub;
 
@@ -76,5 +77,30 @@ public class AppTest
     	Util util = new Util();
     	SalaryStub stub = new SalaryStub();
     	assert(1 == util.filterSalaries(stub));
+    }
+    
+    public void testFilterSalariesMockito() {
+    	Util util = new Util();
+    	Salary mockSalary = mock(Salary.class);
+    	
+    	ArrayList<Integer> salaries = new ArrayList<Integer>();
+    	salaries.add(50001);
+    	salaries.add(49999);
+    	salaries.add(50000);
+    	salaries.add(-1);
+    	
+    	ArrayList<Integer> salaries2 = new ArrayList<Integer>();
+    	salaries2.add(50001);
+    	salaries2.add(49999);
+    	salaries2.add(50000);
+    	salaries2.add(-1);
+    	salaries2.add(50002);
+    	
+    	when(mockSalary.returnSalaries()).thenReturn(salaries).thenReturn(salaries2);
+    	
+    	assert(1 == util.filterSalaries(mockSalary));
+    	assert(2 == util.filterSalaries(mockSalary));
+    	
+    	verify(mockSalary, times(2)).returnSalaries();
     }
 }
