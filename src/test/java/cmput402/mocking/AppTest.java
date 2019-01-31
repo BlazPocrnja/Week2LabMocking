@@ -3,6 +3,8 @@ package cmput402.mocking;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import stub.CityStub;
+import stub.SalaryStub;
 
 /**
  * Unit test for simple App.
@@ -30,5 +32,17 @@ public class AppTest
 
     public void testCapitalizeName() {  	
     	assert("Abram Hindle".equals(Main.capitalizeName("abram hindle")));
+    }
+    
+    public void testFilterEdmonton(){
+    	Util util = new Util();
+    	CityStub stub = new CityStub();
+    	assert(3 == util.filterEdmonton(stub));
+    }
+    
+    public void testFilterSalaries(){
+    	Util util = new Util();
+    	SalaryStub stub = new SalaryStub();
+    	assert(1 == util.filterSalaries(stub));
     }
 }
